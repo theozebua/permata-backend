@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\{
+use App\Http\Controllers\Api\{
     BookController,
     EventController,
     NewsController,
