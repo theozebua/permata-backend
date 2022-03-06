@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             BookSeeder::class,
             NewsSeeder::class,
             WordSeeder::class,
-            EventSeeder::class
+            EventSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
