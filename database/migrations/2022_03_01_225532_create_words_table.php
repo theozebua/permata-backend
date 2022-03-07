@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('source');
             $table->text('text');
+            $table->date('date');
             $table->timestamps();
         });
     }
