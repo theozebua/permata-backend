@@ -16,7 +16,7 @@ class DashboardController extends Controller
             'title' => 'Admin Dashboard',
             'books' => Book::latest()->get(),
             'news' => News::latest()->get(),
-            'word' => Word::latest()->first(),
+            'word' => Word::where('date', date('Y-m-d'))->first(),
         ]);
     }
 }

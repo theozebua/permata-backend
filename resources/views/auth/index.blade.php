@@ -53,7 +53,7 @@
                                             {{ session('message') }}
                                         </div>
                                     @endif
-                                    <form role="form" action="{{ route('auth.signin') }}" method="POST">
+                                    <form action="{{ route('auth.signin') }}" method="POST" role="form">
                                         @csrf
                                         <label for="email">Email</label>
                                         <div class="mb-3">
