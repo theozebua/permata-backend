@@ -22,4 +22,6 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', DashboardController::class)->name('dashboard.index');
+
+    Route::post('/signout', [AuthController::class, 'signout'])->name('auth.signout');
 });

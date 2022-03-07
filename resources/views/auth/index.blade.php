@@ -48,9 +48,9 @@
                                     <p class="mb-0">Enter your email and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    @if (session()->has('failed'))
+                                    @if (session()->has('message'))
                                         <div class="alert alert-info text-light" role="alert">
-                                            <strong>Sorry,</strong> {{ session('failed') }}
+                                            {{ session('message') }}
                                         </div>
                                     @endif
                                     <form role="form" action="{{ route('auth.signin') }}" method="POST">
