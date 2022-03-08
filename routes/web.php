@@ -1,8 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\{
+    BookController,
+    DashboardController,
+    EventController,
+    NewsController,
+    WordController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +28,13 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', DashboardController::class)->name('dashboard.index');
+
+    Route::resources([
+        'books' => BookController::class,
+        'events' => EventController::class,
+        'news' => NewsController::class,
+        'words' => WordController::class
+    ]);
 
     Route::post('/signout', [AuthController::class, 'signout'])->name('auth.signout');
 });

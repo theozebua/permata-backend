@@ -21,6 +21,16 @@
                     </a>
                 </x-nav.nav-link>
             </x-nav.nav-item>
+            <x-nav.nav-item>
+                <x-nav.nav-link class="{{ Request::is('words*') ? 'active' : '' }}">
+                    <x-nav.nav-icon>
+                        <x-svg.words />
+                    </x-nav.nav-icon>
+                    <a href="/words">
+                        <x-nav.nav-link-text>Words</x-nav.nav-link-text>
+                    </a>
+                </x-nav.nav-link>
+            </x-nav.nav-item>
             <br>
             <hr class="horizontal dark mt-0">
             <x-nav.nav-item>

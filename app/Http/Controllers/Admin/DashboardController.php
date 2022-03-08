@@ -12,8 +12,8 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        return view('admin.index', [
-            'title' => 'Admin Dashboard',
+        return view('admin.dashboard.index', [
+            'title' => 'Dashboard',
             'books' => Book::latest()->get(),
             'news' => News::latest()->get(),
             'word' => Word::where('date', date('Y-m-d'))->first(),

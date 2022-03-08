@@ -55,3 +55,12 @@ function fullCalendarFunction(arr) {
     );
     calendar.render();
 }
+
+const dataTableBasic = new simpleDatatables.DataTable("#datatables", {
+    searchable: true,
+    fixedHeight: false,
+    scrollX: true,
+});
+
+var toastBody = document.getElementById("toast");
+var toast = new bootstrap.Toast(toastBody);
