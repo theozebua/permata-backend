@@ -1,4 +1,4 @@
-<x-layouts title="{{ $title }}">
+<x-layouts.app title="{{ $title }}">
     <x-templates.row>
         <div class="col-12 mb-lg-0 mb-4">
             <x-card>
@@ -120,4 +120,4 @@
             </x-card>
         </div>
     </x-templates.row>
-</x-layouts>
+</x-layouts.app>
