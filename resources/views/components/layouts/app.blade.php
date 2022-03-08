@@ -34,6 +34,9 @@
     <link href="/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="/css/soft-ui-dashboard.min.css?v=1.0.3" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -44,7 +47,7 @@
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
 
         <!-- Navbar -->
-        <x-topnav />
+        <x-topnav title="{{ $title }}" />
         <!-- End Navbar -->
 
         <!-- Content -->
@@ -61,7 +64,10 @@
     <!--   Core JS Files   -->
     <script src="/js/core/popper.min.js"></script>
     <script src="/js/core/bootstrap.min.js"></script>
-    <script src="/js/plugins/fullcalendar.min.js"></script>
+    @if (Request::is('admin'))
+        <script src="/js/plugins/fullcalendar.min.js"></script>
+    @endif
+    <script src="/js/plugins/datatables.min.js"></script>
     <script src="/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="/js/app.js"></script>

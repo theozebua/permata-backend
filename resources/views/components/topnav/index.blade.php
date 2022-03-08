@@ -2,7 +2,7 @@
     navbar-scroll="true">
     <x-templates class="py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h5 class="font-weight-bolder mb-0">Dashboard</h5>
+            <h5 class="font-weight-bolder mb-0">{{ $title }}</h5>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <x-nav class="justify-content-end ms-md-auto">
