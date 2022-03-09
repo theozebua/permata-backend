@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): \Illuminate\Contracts\View\View
     {
         return view('admin.dashboard.index', [
             'title' => 'Dashboard',

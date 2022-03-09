@@ -3,22 +3,24 @@
         <div class="col-12">
             <x-card>
                 <x-card.body>
-                    <form action="{{ route('words.store') }}" method="POST">
+                    <form action="{{ route('news.update', $news->id) }}" method="POST">
+                        @method('put')
                         @csrf
                         <div class="form-group">
-                            <label for="source" class="fs-6">Source</label>
-                            <input type="text" class="form-control @error('source') is-invalid @enderror" name="source"
-                                id="source" placeholder="Amsal 1 : 7" autofocus required aria-required="true"
-                                autocomplete="off">
-                            @error('source')
+                            <label for="title" class="fs-6">Title</label>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                                id="title" placeholder="Warta 1" aria-placeholder="Warta 1" autofocus required
+                                aria-required="true" autocomplete="off" value="{{ old('title', $news->title) }}">
+                            @error('title')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="text" class="fs-6">Text</label>
-                            <textarea class="form-control @error('text') is-invalid @enderror resize-none" name="text"
-                                id="text" rows="10" required aria-required="true" autocomplete="off"></textarea>
-                            @error('text')
+                            <label for="description" class="fs-6">Description</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror resize-none"
+                                name="description" id="description" rows="10" required aria-required="true"
+                                autocomplete="off">{{ old('description', $news->description) }}</textarea>
+                            @error('description')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
@@ -26,7 +28,7 @@
                             <div class="label fs-6" for="date">Date</div>
                             <input type="date" name="date" id="date"
                                 class="form-control @error('date') is-invalid @enderror" required aria-required="true"
-                                value="{{ old('date', date('Y-m-d')) }}">
+                                value="{{ old('date', $news->date) }}">
                             @error('date')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-    navbar-scroll="true">
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky"
+    id="navbarBlur" navbar-scroll="true">
     <x-templates class="py-1 px-3">
         <nav aria-label="breadcrumb">
             <h5 class="font-weight-bolder mb-0">{{ $title }}</h5>

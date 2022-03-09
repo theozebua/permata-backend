@@ -3,84 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\StoreNewsRequest;
+use App\Http\Requests\News\UpdateNewsRequest;
 use App\Models\News;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
-        //
+        return view('admin.news.index', [
+            'title' => 'News',
+            'news' => News::latest()->get()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\View
     {
-        //
+        return view('admin.news.create', [
+            'title' => 'Create a new news'
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreNewsRequest $request): \Illuminate\Http\RedirectResponse
     {
-        //
+        $data = $request->validated();
+        News::create($data);
+
+        return redirect(route('news.index'))->with('message', 'New news created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\News  $news
-     * @return \Illuminate\Http\Response
-     */
-    public function show(News $news)
+    public function edit(News $news): \Illuminate\Contracts\View\View
     {
-        //
+        return view('admin.news.edit', [
+            'title' => 'Edit a news',
+            'news' => $news
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\News  $news
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(News $news)
+    public function update(UpdateNewsRequest $request, News $news): \Illuminate\Http\RedirectResponse
     {
-        //
+        $data = $request->validated();
+        News::where('id', $news->id)->update($data);
+
+        return redirect(route('news.index'))->with('message', 'News updated successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\News  $news
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, News $news)
+    public function destroy(News $news): \Illuminate\Http\RedirectResponse
     {
-        //
-    }
+        News::destroy($news->id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\News  $news
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(News $news)
-    {
-        //
+        return redirect(route('news.index'))->with('message', 'News deleted successfully');
     }
 }
