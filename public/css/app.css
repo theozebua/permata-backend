@@ -28,3 +28,8 @@ html::-webkit-scrollbar {
 .resize-none {
     resize: none;
 }
+
+.required::after {
+    content: "*";
+    color: #ea0606;
+}

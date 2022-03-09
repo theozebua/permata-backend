@@ -64,3 +64,12 @@ const dataTableBasic = new simpleDatatables.DataTable("#datatables", {
 
 var toastBody = document.getElementById("toast");
 var toast = new bootstrap.Toast(toastBody);
+
+function preview(image) {
+    const [file] = image.files;
+    if (file) {
+        const previewImage = document.querySelector("#preview-image");
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.setAttribute("alt", "Preview Image");
+    }
+}

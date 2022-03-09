@@ -3,84 +3,82 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookRequest;
 use App\Models\Book;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('admin.books.index', [
+            'title' => 'Books',
+            'books' => Book::latest()->get()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.books.create', [
+            'title' => 'Create a new book'
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(BookRequest $request): RedirectResponse
     {
-        //
+        DB::beginTransaction();
+        $data = $request->validated();
+        $data['slug'] = str($data['title'])->slug();
+        $data['image'] = $request->file('image') ? $request->file('image')->store('img/books', 'public_path') : null;
+        $data['file'] = $request->file('file') ? $request->file('file')->store('files', 'public_path') : null;
+        Book::create($data);
+        DB::commit();
+
+        return redirect(route('books.index'))->with('message', 'Book created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
+    public function show(Book $book): View
     {
-        //
+        return view('admin.books.show', [
+            'title' => $book->title,
+            'book' => $book
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Book $book)
+    public function edit(Book $book): View
     {
-        //
+        return view('admin.books.edit', [
+            'title' => 'Edit a book',
+            'book' => $book
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Book $book)
+    public function update(BookRequest $request, Book $book): RedirectResponse
     {
-        //
+        DB::beginTransaction();
+        $data = $request->validated();
+        $data['slug'] = str($data['title'])->slug();
+        $data['image'] = $request->file('image') ? $request->file('image')->store('img/books', 'public_path') : null;
+        $data['file'] = $request->file('file') ? $request->file('file')->store('files', 'public_path') : null;
+        Book::where('slug', $book->slug)->update($data);
+        DB::commit();
+
+        return redirect(route('books.index'))->with('message', 'Book updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Book $book)
+    public function destroy(Book $book): RedirectResponse
     {
-        //
+        Book::destroy($book->id);
+
+        return redirect(route('books.index'))->with('message', 'Book deleted successfully');
+    }
+
+    public function download(Book $book): BinaryFileResponse|RedirectResponse
+    {
+        if (!$book->file) return back()->with('message', 'File not found for ' . $book->title);
+        return response()->download($book->file);
     }
 }

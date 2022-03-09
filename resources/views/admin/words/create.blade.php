@@ -9,7 +9,7 @@
                             <label for="source" class="fs-6">Source</label>
                             <input type="text" class="form-control @error('source') is-invalid @enderror" name="source"
                                 id="source" placeholder="Amsal 1 : 7" autofocus required aria-required="true"
-                                autocomplete="off">
+                                autocomplete="off" value="{{ old('source') }}">
                             @error('source')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
@@ -17,7 +17,8 @@
                         <div class="form-group">
                             <label for="text" class="fs-6">Text</label>
                             <textarea class="form-control @error('text') is-invalid @enderror resize-none" name="text"
-                                id="text" rows="10" required aria-required="true" autocomplete="off"></textarea>
+                                id="text" rows="10" required aria-required="true"
+                                autocomplete="off">{{ old('text') }}</textarea>
                             @error('text')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror

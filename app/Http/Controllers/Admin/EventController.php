@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Event\StoreEventRequest;
-use App\Http\Requests\Event\UpdateEventRequest;
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class EventController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\View
+    public function index(): View
     {
         return view('admin.events.index', [
             'title' => 'Events',
@@ -17,14 +18,14 @@ class EventController extends Controller
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\View
+    public function create(): View
     {
         return view('admin.events.create', [
             'title' => 'Create a new event'
         ]);
     }
 
-    public function store(StoreEventRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(EventRequest $request): RedirectResponse
     {
         $data = $request->validated();
         Event::create($data);
@@ -32,7 +33,7 @@ class EventController extends Controller
         return redirect(route('events.index'))->with('message', 'Event created successfully');
     }
 
-    public function edit(Event $event): \Illuminate\Contracts\View\View
+    public function edit(Event $event): View
     {
         return view('admin.events.edit', [
             'title' => 'Edit an event',
@@ -40,15 +41,15 @@ class EventController extends Controller
         ]);
     }
 
-    public function update(UpdateEventRequest $request, Event $event): \Illuminate\Http\RedirectResponse
+    public function update(EventRequest $request, Event $event): RedirectResponse
     {
         $data = $request->validated();
         Event::where('id', $event->id)->update($data);
 
-        return redirect(route('events.index'))->with('message', 'Event edited successfully');
+        return redirect(route('events.index'))->with('message', 'Event updated successfully');
     }
 
-    public function destroy(Event $event)
+    public function destroy(Event $event): RedirectResponse
     {
         Event::destroy($event->id);
 

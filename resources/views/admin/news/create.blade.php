@@ -9,7 +9,7 @@
                             <label for="title" class="fs-6">Title</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
                                 id="title" placeholder="Warta 1" aria-placeholder="Warta 1" autofocus required
-                                aria-required="true" autocomplete="off">
+                                aria-required="true" autocomplete="off" value="{{ old('title') }}">
                             @error('title')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
@@ -18,7 +18,7 @@
                             <label for="description" class="fs-6">Description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror resize-none"
                                 name="description" id="description" rows="10" required aria-required="true"
-                                autocomplete="off"></textarea>
+                                autocomplete="off">{{ old('description') }}</textarea>
                             @error('description')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror

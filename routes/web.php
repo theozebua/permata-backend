@@ -29,6 +29,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/admin', DashboardController::class)->name('dashboard.index');
 
+    Route::get('/books/download/{book}', [BookController::class, 'download'])->name('books.download')->missing(fn () => 'Missing');
     Route::resources([
         'books' => BookController::class,
         'events' => EventController::class,

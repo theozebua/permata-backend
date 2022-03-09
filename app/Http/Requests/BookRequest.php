@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class AuthRequest extends FormRequest
+class BookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,10 @@ class AuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email:dns'],
-            'password' => ['required']
+            'title' => ['required', 'string', Rule::unique('books', 'title')->ignore($this->book)],
+            'description' => ['required', 'string'],
+            'image' => ['image'],
+            'file' => ['file', 'mimes:pdf']
         ];
     }
 }
