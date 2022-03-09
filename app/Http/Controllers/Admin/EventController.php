@@ -3,84 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Event\StoreEventRequest;
+use App\Http\Requests\Event\UpdateEventRequest;
 use App\Models\Event;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
-        //
+        return view('admin.events.index', [
+            'title' => 'Events',
+            'events' => Event::latest()->get()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\View
     {
-        //
+        return view('admin.events.create', [
+            'title' => 'Create a new event'
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreEventRequest $request): \Illuminate\Http\RedirectResponse
     {
-        //
+        $data = $request->validated();
+        Event::create($data);
+
+        return redirect(route('events.index'))->with('message', 'Event created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Event $event)
+    public function edit(Event $event): \Illuminate\Contracts\View\View
     {
-        //
+        return view('admin.events.edit', [
+            'title' => 'Edit an event',
+            'event' => $event
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Event $event)
+    public function update(UpdateEventRequest $request, Event $event): \Illuminate\Http\RedirectResponse
     {
-        //
+        $data = $request->validated();
+        Event::where('id', $event->id)->update($data);
+
+        return redirect(route('events.index'))->with('message', 'Event edited successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Event $event)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Event $event)
     {
-        //
+        Event::destroy($event->id);
+
+        return redirect(route('events.index'))->with('message', 'Event deleted successfully');
     }
 }

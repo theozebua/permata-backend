@@ -18,6 +18,11 @@ html::-webkit-scrollbar {
     bottom: 20px;
     right: 20px;
     z-index: 9999;
+    transition: 200ms;
+}
+
+.fab:hover {
+    transform: scale(1.1);
 }
 
 .resize-none {
