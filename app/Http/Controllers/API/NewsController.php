@@ -4,26 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use Illuminate\Http\JsonResponse;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(['status' => 'success', 'data' => News::latest()->get()]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\News  $news
-     * @return \Illuminate\Http\Response
-     */
-    public function show(News $news)
+    public function show(News $news): JsonResponse
     {
         return response()->json(['status' => 'success', 'data' => $news]);
     }

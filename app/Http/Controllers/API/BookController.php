@@ -4,26 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use Illuminate\Http\JsonResponse;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(['status' => 'success', 'data' => Book::latest()->get()]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
+    public function show(Book $book): JsonResponse
     {
         return response()->json(['status' => 'success', 'data' => $book]);
     }

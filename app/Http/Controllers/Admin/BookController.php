@@ -40,14 +40,6 @@ class BookController extends Controller
         return redirect(route('books.index'))->with('message', 'Book created successfully');
     }
 
-    public function show(Book $book): View
-    {
-        return view('admin.books.show', [
-            'title' => $book->title,
-            'book' => $book
-        ]);
-    }
-
     public function edit(Book $book): View
     {
         return view('admin.books.edit', [
