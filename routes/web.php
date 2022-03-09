@@ -29,7 +29,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/admin', DashboardController::class)->name('dashboard.index');
 
-    Route::get('/books/download/{book}', [BookController::class, 'download'])->name('books.download')->missing(fn () => 'Missing');
     Route::resources([
         'books' => BookController::class,
         'events' => EventController::class,
@@ -39,3 +38,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/signout', [AuthController::class, 'signout'])->name('auth.signout');
 });
+
+/**
+ * * During development, the route for downloading files
+ * * will not be in the middleware auth
+ */
+Route::get('/books/download/{book}', [BookController::class, 'download'])->name('books.download');
