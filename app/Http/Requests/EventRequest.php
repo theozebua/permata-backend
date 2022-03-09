@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Word;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWordRequest extends FormRequest
+class EventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class UpdateWordRequest extends FormRequest
     public function rules()
     {
         return [
-            'source' => ['required', 'string'],
-            'text' => ['required', 'string'],
-            'date' => ['required', 'date']
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'start' => ['required', 'date'],
+            'time' => ['required']
         ];
     }
 }

@@ -15,4 +15,9 @@ class Book extends Model
      * @var array<int, string>
      */
     protected $guarded = ['id'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

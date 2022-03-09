@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
-use App\Models\News;
-use App\Models\Word;
-use Illuminate\Http\Request;
+use App\Models\{Book, Word, News};
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): \Illuminate\Contracts\View\View
+    public function __invoke(): View
     {
         return view('admin.dashboard.index', [
             'title' => 'Dashboard',

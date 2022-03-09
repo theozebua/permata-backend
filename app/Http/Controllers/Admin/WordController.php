@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Word\StoreWordRequest;
-use App\Http\Requests\Word\UpdateWordRequest;
+use App\Http\Requests\WordRequest;
 use App\Models\Word;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class WordController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\View
+    public function index(): View
     {
         return view('admin.words.index', [
             'title' => 'Word Of The Day',
@@ -17,14 +18,14 @@ class WordController extends Controller
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\View
+    public function create(): View
     {
         return view('admin.words.create', [
             'title' => 'Create a new word'
         ]);
     }
 
-    public function store(StoreWordRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(WordRequest $request): RedirectResponse
     {
         $data = $request->validated();
         Word::create($data);
@@ -32,7 +33,7 @@ class WordController extends Controller
         return redirect(route('words.index'))->with('message', 'New word created successfully');
     }
 
-    public function edit(Word $word): \Illuminate\Contracts\View\View
+    public function edit(Word $word): View
     {
         return view('admin.words.edit', [
             'title' => 'Edit a word',
@@ -40,7 +41,7 @@ class WordController extends Controller
         ]);
     }
 
-    public function update(UpdateWordRequest $request, Word $word): \Illuminate\Http\RedirectResponse
+    public function update(WordRequest $request, Word $word): RedirectResponse
     {
         $data = $request->validated();
         Word::where('id', $word->id)->update($data);
@@ -48,7 +49,7 @@ class WordController extends Controller
         return redirect(route('words.index'))->with('message', 'Word updated successfully');
     }
 
-    public function destroy(Word $word): \Illuminate\Http\RedirectResponse
+    public function destroy(Word $word): RedirectResponse
     {
         Word::destroy($word->id);
 

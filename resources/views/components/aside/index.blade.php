@@ -51,6 +51,16 @@
                     </a>
                 </x-nav.nav-link>
             </x-nav.nav-item>
+            <x-nav.nav-item>
+                <x-nav.nav-link class="{{ Request::is('books*') ? 'active' : '' }}">
+                    <x-nav.nav-icon>
+                        <x-svg.books />
+                    </x-nav.nav-icon>
+                    <a href="{{ route('books.index') }}">
+                        <x-nav.nav-link-text>Books</x-nav.nav-link-text>
+                    </a>
+                </x-nav.nav-link>
+            </x-nav.nav-item>
             <br>
             <hr class="horizontal dark mt-0">
             <x-nav.nav-item>

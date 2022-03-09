@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\News\StoreNewsRequest;
-use App\Http\Requests\News\UpdateNewsRequest;
+use App\Http\Requests\NewsRequest;
 use App\Models\News;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class NewsController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\View
+    public function index(): View
     {
         return view('admin.news.index', [
             'title' => 'News',
@@ -17,14 +18,14 @@ class NewsController extends Controller
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\View
+    public function create(): View
     {
         return view('admin.news.create', [
             'title' => 'Create a new news'
         ]);
     }
 
-    public function store(StoreNewsRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(NewsRequest $request): RedirectResponse
     {
         $data = $request->validated();
         News::create($data);
@@ -32,7 +33,7 @@ class NewsController extends Controller
         return redirect(route('news.index'))->with('message', 'New news created successfully');
     }
 
-    public function edit(News $news): \Illuminate\Contracts\View\View
+    public function edit(News $news): View
     {
         return view('admin.news.edit', [
             'title' => 'Edit a news',
@@ -40,7 +41,7 @@ class NewsController extends Controller
         ]);
     }
 
-    public function update(UpdateNewsRequest $request, News $news): \Illuminate\Http\RedirectResponse
+    public function update(NewsRequest $request, News $news): RedirectResponse
     {
         $data = $request->validated();
         News::where('id', $news->id)->update($data);
@@ -48,7 +49,7 @@ class NewsController extends Controller
         return redirect(route('news.index'))->with('message', 'News updated successfully');
     }
 
-    public function destroy(News $news): \Illuminate\Http\RedirectResponse
+    public function destroy(News $news): RedirectResponse
     {
         News::destroy($news->id);
 
