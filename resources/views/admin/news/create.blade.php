@@ -3,22 +3,23 @@
         <div class="col-12">
             <x-card>
                 <x-card.body>
-                    <form action="{{ route('words.store') }}" method="POST">
+                    <form action="{{ route('news.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="source" class="fs-6">Source</label>
-                            <input type="text" class="form-control @error('source') is-invalid @enderror" name="source"
-                                id="source" placeholder="Amsal 1 : 7" autofocus required aria-required="true"
-                                autocomplete="off">
-                            @error('source')
+                            <label for="title" class="fs-6">Title</label>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                                id="title" placeholder="Warta 1" aria-placeholder="Warta 1" autofocus required
+                                aria-required="true" autocomplete="off">
+                            @error('title')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="text" class="fs-6">Text</label>
-                            <textarea class="form-control @error('text') is-invalid @enderror resize-none" name="text"
-                                id="text" rows="10" required aria-required="true" autocomplete="off"></textarea>
-                            @error('text')
+                            <label for="description" class="fs-6">Description</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror resize-none"
+                                name="description" id="description" rows="10" required aria-required="true"
+                                autocomplete="off"></textarea>
+                            @error('description')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>

@@ -16,7 +16,7 @@
                     <x-nav.nav-icon>
                         <x-svg.dashboard />
                     </x-nav.nav-icon>
-                    <a href="/admin">
+                    <a href="{{ route('dashboard.index') }}">
                         <x-nav.nav-link-text>Dashboard</x-nav.nav-link-text>
                     </a>
                 </x-nav.nav-link>
@@ -26,8 +26,18 @@
                     <x-nav.nav-icon>
                         <x-svg.words />
                     </x-nav.nav-icon>
-                    <a href="/words">
+                    <a href="{{ route('words.index') }}">
                         <x-nav.nav-link-text>Words</x-nav.nav-link-text>
+                    </a>
+                </x-nav.nav-link>
+            </x-nav.nav-item>
+            <x-nav.nav-item>
+                <x-nav.nav-link class="{{ Request::is('news*') ? 'active' : '' }}">
+                    <x-nav.nav-icon>
+                        <x-svg.news />
+                    </x-nav.nav-icon>
+                    <a href="{{ route('news.index') }}">
+                        <x-nav.nav-link-text>News</x-nav.nav-link-text>
                     </a>
                 </x-nav.nav-link>
             </x-nav.nav-item>
