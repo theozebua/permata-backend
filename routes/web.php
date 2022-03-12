@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\{
+    BookController,
+    DashboardController,
+    EventController,
+    NewsController,
+    WordController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +21,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function () {
+    Route::get('/', [AuthController::class, 'index'])->name('auth.index');
+    Route::post('/', [AuthController::class, 'signin'])->name('auth.signin');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', DashboardController::class)->name('dashboard.index');
+
+    Route::resources([
+        'books' => BookController::class,
+        'events' => EventController::class,
+        'news' => NewsController::class,
+        'words' => WordController::class
+    ]);
+
+    Route::post('/signout', [AuthController::class, 'signout'])->name('auth.signout');
+});
+
+/**
+ * * During development, the route for downloading files
+ * * will not be in the middleware auth
+ */
+Route::get('/books/download/{book}', [BookController::class, 'download'])->name('books.download');
