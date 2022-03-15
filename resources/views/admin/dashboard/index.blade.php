@@ -89,7 +89,8 @@
                         <div class="col-md-5 ms-auto text-center mt-md-5 mt-md-0">
                             <div class="position-relative d-flex align-items-center justify-content-center h-100">
                                 <img class="w-100 position-relative z-index-2 border-radius-lg"
-                                    src="{{ $books[0]->image }}" alt="{{ $books[0]->title }}">
+                                    src="{{ $books[0]->image ? $books[0]->image : 'https://via.placeholder.com/300x400' }}"
+                                    alt="{{ $books[0]->title }}">
                             </div>
                         </div>
                     </x-templates.row>
@@ -110,7 +111,8 @@
                         @foreach ($books->take(5)->skip(1) as $book)
                             <div class="col-6 mb-4">
                                 <a href="javascript:;">
-                                    <img class="img-fluid border-radius-md" src="{{ $book->image }}"
+                                    <img class="img-fluid border-radius-md"
+                                        src="{{ $book->image ? $book->image : 'https://via.placeholder.com/300x400' }}"
                                         alt="{{ $book->title }}">
                                 </a>
                             </div>
