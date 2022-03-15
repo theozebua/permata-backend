@@ -53,8 +53,8 @@ class BookController extends Controller
         DB::beginTransaction();
         $data = $request->validated();
         $data['slug'] = str($data['title'])->slug();
-        $data['image'] = $request->file('image') ? $request->file('image')->store('img/books', 'public_path') : null;
-        $data['file'] = $request->file('file') ? $request->file('file')->store('files', 'public_path') : null;
+        if ($request->file('image')) $data['image'] = $request->file('image')->store('img/books', 'public_path');
+        if ($request->file('file')) $data['file'] = $request->file('file')->store('files', 'public_path');
         Book::where('slug', $book->slug)->update($data);
         DB::commit();
 
